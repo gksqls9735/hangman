@@ -50,6 +50,8 @@
 
 .gallows {
   position: relative;
+  display: grid;
+  place-items: center;
   overflow: hidden;
 }
 
@@ -62,22 +64,29 @@
   pointer-events: none;
 }
 
-.gallows::before {
+.hangman-drawing::before {
   content: '';
   position: absolute;
-  left: 12%;
-  right: 12%;
-  bottom: 28px;
-  height: 7px;
+  left: 4%;
+  right: 4%;
+  bottom: -7%;
+  height: 2.2%;
   border-radius: 999px;
   background: rgba(246, 207, 126, 0.32);
   box-shadow: 0 0 24px rgba(246, 207, 126, 0.16);
 }
 
+.hangman-drawing {
+  position: relative;
+  width: auto;
+  height: min(76%, 390px);
+  aspect-ratio: 1 / 1;
+  max-width: 86%;
+}
+
 .beam,
 .body-part {
   position: absolute;
-  left: 50%;
   background: var(--chalk);
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
 }
@@ -87,31 +96,32 @@
 }
 
 .base {
-  bottom: 62px;
-  width: min(240px, 54%);
-  height: 10px;
+  left: 50%;
+  bottom: 8%;
+  width: 72%;
+  height: 3%;
   transform: translateX(-50%);
 }
 
 .pole {
-  bottom: 62px;
-  width: 10px;
-  height: min(270px, 57%);
-  transform: translateX(-112px);
+  left: 18%;
+  bottom: 8%;
+  width: 3%;
+  height: 72%;
 }
 
 .top {
-  top: 58px;
-  width: min(210px, 45%);
-  height: 10px;
-  transform: translateX(-112px);
+  left: 18%;
+  top: 18%;
+  width: 60%;
+  height: 3%;
 }
 
 .rope {
-  top: 58px;
-  width: 5px;
-  height: 46px;
-  transform: translateX(68px);
+  left: 75%;
+  top: 18%;
+  width: 1.5%;
+  height: 15%;
   background: var(--gold);
 }
 
@@ -128,46 +138,50 @@
 }
 
 .head {
-  top: 103px;
-  width: 52px;
-  height: 52px;
-  border: 6px solid var(--chalk);
+  left: 67%;
+  top: 32%;
+  width: 16%;
+  height: 16%;
+  border: clamp(2px, 1.1vmin, 6px) solid var(--chalk);
   border-radius: 50%;
   background: transparent;
-  transform: translateX(46px);
 }
 
 .torso {
-  top: 164px;
-  width: 6px;
-  height: 78px;
-  transform: translateX(68px);
+  left: 74%;
+  top: 49%;
+  width: 2%;
+  height: 21%;
 }
 
 .arm,
 .leg {
-  width: 6px;
-  height: 58px;
+  width: 2%;
+  height: 17%;
 }
 
 .arm.left {
-  top: 176px;
-  transform: translateX(50px) rotate(34deg);
+  left: 68%;
+  top: 52%;
+  transform: rotate(34deg);
 }
 
 .arm.right {
-  top: 176px;
-  transform: translateX(86px) rotate(-34deg);
+  left: 81%;
+  top: 52%;
+  transform: rotate(-34deg);
 }
 
 .leg.left {
-  top: 234px;
-  transform: translateX(52px) rotate(28deg);
+  left: 69%;
+  top: 68%;
+  transform: rotate(28deg);
 }
 
 .leg.right {
-  top: 234px;
-  transform: translateX(84px) rotate(-28deg);
+  left: 80%;
+  top: 68%;
+  transform: rotate(-28deg);
 }
 
 .puzzle-panel {
@@ -404,7 +418,7 @@
   }
 
   .gallows {
-    height: 250px;
+    height: 280px;
   }
 
   .keyboard {
@@ -413,29 +427,143 @@
 }
 
 @media (max-width: 520px) {
+  .game-shell {
+    width: 100%;
+    height: 100svh;
+    min-height: 0;
+    overflow: hidden;
+    padding: 8px;
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
   .game-header {
-    margin-bottom: 12px;
+    margin-bottom: 6px;
+  }
+
+  .game-header h1 {
+    margin-bottom: 2px;
+    font-size: 34px;
   }
 
   .intro {
     display: none;
   }
 
+  .gallows {
+    height: auto;
+    min-height: 0;
+  }
+
+  .gallows::after {
+    inset: 12px;
+  }
+
+  .play-area {
+    display: grid;
+    grid-template-rows: 166px minmax(0, 1fr);
+    gap: 8px;
+    min-height: 0;
+    overflow: hidden;
+  }
+
   .puzzle-panel {
-    gap: 12px;
-    padding: 16px;
+    gap: 6px;
+    min-height: 0;
+    overflow: hidden;
+    padding: 10px 12px;
+  }
+
+  .hangman-drawing {
+    height: 88%;
+    max-width: 78%;
   }
 
   .status-row {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .badge {
+    min-width: 84px;
+    padding: 4px 9px;
+  }
+
+  .misses {
+    font-size: 12px;
+  }
+
+  .hint {
+    gap: 2px;
+    font-size: 13px;
+  }
+
+  .hint span,
+  .word-guess label {
+    font-size: 11px;
+  }
+
+  .word {
+    min-height: 40px;
+  }
+
+  .letter-slot {
+    height: 38px;
+    border-bottom-width: 3px;
+    font-size: min(var(--letter-font-size), 26px);
+  }
+
+  .result {
+    min-height: 15px;
+    font-size: 12px;
+    line-height: 1.2;
   }
 
   .word-guess-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px;
+  }
+
+  .word-guess input,
+  .word-guess button,
+  .new-game {
+    min-height: 32px;
+  }
+
+  .word-guess input {
+    font-size: 14px;
   }
 
   .keyboard {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 4px;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+  }
+
+  .keyboard button {
+    max-height: 32px;
+    font-size: 12px;
+  }
+
+  .new-game {
+    padding: 0 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  .status-row,
+  .word-guess-row {
+    align-items: flex-start;
+    grid-template-columns: 1fr;
+  }
+
+  .status-row {
+    flex-direction: column;
+  }
+
+  .gallows {
+    height: 160px;
+  }
+
+  .keyboard {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
   }
 }

@@ -114,16 +114,18 @@ function App() {
 
       <section className="play-area" aria-label="Hangman game board">
         <div className="gallows" aria-label={`${wrongAttempts.length} wrong guesses`}>
-          <div className="beam base"></div>
-          <div className="beam pole"></div>
-          <div className="beam top"></div>
-          <div className="beam rope"></div>
-          <div className={`body-part head ${wrongAttempts.length >= 1 ? 'show' : ''}`}></div>
-          <div className={`body-part torso ${wrongAttempts.length >= 2 ? 'show' : ''}`}></div>
-          <div className={`body-part arm left ${wrongAttempts.length >= 3 ? 'show' : ''}`}></div>
-          <div className={`body-part arm right ${wrongAttempts.length >= 4 ? 'show' : ''}`}></div>
-          <div className={`body-part leg left ${wrongAttempts.length >= 5 ? 'show' : ''}`}></div>
-          <div className={`body-part leg right ${wrongAttempts.length >= 6 ? 'show' : ''}`}></div>
+          <div className="hangman-drawing">
+            <div className="beam base"></div>
+            <div className="beam pole"></div>
+            <div className="beam top"></div>
+            <div className="beam rope"></div>
+            <div className={`body-part head ${wrongAttempts.length >= 1 ? 'show' : ''}`}></div>
+            <div className={`body-part torso ${wrongAttempts.length >= 2 ? 'show' : ''}`}></div>
+            <div className={`body-part arm left ${wrongAttempts.length >= 3 ? 'show' : ''}`}></div>
+            <div className={`body-part arm right ${wrongAttempts.length >= 4 ? 'show' : ''}`}></div>
+            <div className={`body-part leg left ${wrongAttempts.length >= 5 ? 'show' : ''}`}></div>
+            <div className={`body-part leg right ${wrongAttempts.length >= 6 ? 'show' : ''}`}></div>
+          </div>
         </div>
 
         <div className="puzzle-panel">
